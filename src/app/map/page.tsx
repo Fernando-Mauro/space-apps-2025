@@ -4,9 +4,10 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import osmtogeojson from 'osmtogeojson';
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 
 const Map = () => {
-  const [geojsonData, setGeojsonData] = useState(null);
+  const [geojsonData, setGeojsonData] = useState<FeatureCollection<Geometry, GeoJsonProperties> | null>(null);
 
   useEffect(() => {
     const fetchAndConvertOsm = async () => {
