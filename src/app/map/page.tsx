@@ -1,35 +1,18 @@
-"use client"
-// components/Map.js
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
-import osmtogeojson from 'osmtogeojson';
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+"use client"; // Necesario para usar useMemo
 
-const Map = () => {
-  const [geojsonData, setGeojsonData] = useState<FeatureCollection<Geometry, GeoJsonProperties> | null>(null);
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
 
-  useEffect(() => {
-    const fetchAndConvertOsm = async () => {
-      // Asegúrate de que tu archivo .osm esté en la carpeta `public`
-      const response = await fetch('/map.osm');
-      const osmData = await response.text();
-      const geojson = osmtogeojson(new DOMParser().parseFromString(osmData, 'text/xml'));
-      setGeojsonData(geojson);
-    };
-
-    fetchAndConvertOsm();
-  }, []);
+export default function MapPage() {
+  const Map = useMemo(() => dynamic(
+    () => import('@/components/MapDisplay'),
+{
+      loading: () => <p>Cargando mapa...</p>,
+      ssr: false
+    }
+  ), []);
 
   return (
-    <MapContainer center={[17.1182868,-96.4575874]} zoom={14.37} style={{ height: '100vh', width: '100%' }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {geojsonData && <GeoJSON data={geojsonData} />}
-    </MapContainer>
+    <Map />
   );
-};
-
-export default Map;
+}
