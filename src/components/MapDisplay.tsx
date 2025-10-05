@@ -1,16 +1,13 @@
 "use client";
 
-
-import { DateControl } from "@/components/date-control"
-import { MapControl } from "@/components/map-control"
-import MapActions from "@/components/map-actions"
 import { MapContainer, TileLayer, GeoJSON, LayersControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import osmtogeojson from 'osmtogeojson';
 import { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
-import '@/components/date-control';
-
+import { DateControl } from './DateControl';
+import { MapControl } from './MapControl';
+import MapActions from './MapActions';
 
 
 // Este es tu componente de mapa, ahora aislado y listo para ser importado
@@ -69,6 +66,22 @@ const MapDisplay = () => {
         onStatusChange={(status) => {
           console.log("Status changed:", status)
         }}
+      />
+      <MapControl
+        onLocationSelect={(location) => {
+          console.log("Location selected:", location)
+        }}
+        onStyleChange={(style) => {
+          console.log("Map style changed:", style)
+        }}
+        className="w-80"
+      />
+
+      <MapActions
+        currentPosition={{ lat: 40.7128, lng: -74.006 }}
+        currentMapStyle="satellite"
+        onZoomIn={() => console.log("Zoom in")}
+        onZoomOut={() => console.log("Zoom out")}
       />
     </MapContainer>
   );

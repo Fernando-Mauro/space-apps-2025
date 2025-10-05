@@ -80,7 +80,7 @@ export function MapControl({ onLocationSelect, onStyleChange, className = "" }: 
 
   return (
     <div
-      className={`bg-slate-700/40 backdrop-blur-md rounded-2xl border border-slate-600/50 shadow-xl p-4 ${className}`}
+      className={`bg-slate-700/40 backdrop-blur-md rounded-2xl border border-slate-600/50 shadow-xl p-4 left-2 top-2 absolute z-[1000] ${className}`}
     >
       {/* Buscador con autocompletado */}
       <div ref={searchRef} className="relative mb-4">

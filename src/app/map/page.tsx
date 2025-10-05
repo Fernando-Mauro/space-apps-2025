@@ -1,5 +1,4 @@
 "use client"; // Necesario para usar useMemo
-import { DateControl } from "@/components/date-control"
 
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
