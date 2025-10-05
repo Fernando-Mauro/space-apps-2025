@@ -99,7 +99,7 @@ export function Gallery() {
                     <p className="text-sm tracking-[0.2em] text-gray-400 mb-4">IMAGE GALLERY</p>
                     <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Exploring Mars</h2>
                     <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-                        A collection of stunning images captured by NASA's Perseverance rover, showcasing the Martian landscape and
+                        A collection of stunning images captured by NASAs Perseverance rover, showcasing the Martian landscape and
                         scientific discoveries.
                     </p>
                 </div>
