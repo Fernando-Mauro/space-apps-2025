@@ -13,49 +13,24 @@ interface NavigationItem {
 const navigationItems: NavigationItem[] = [
     {
         title: "Objective",
-        description:
-            "The Perseverance rover will search for signs of ancient microbial life, which will advance NASA's quest to explore the past habitability of Mars.",
-        icon: "/mars-icons/objective.jpg",
-        expandedContent:
-            "Perseverance is designed to better understand the geology of Mars and seek signs of ancient life. The mission will collect and store a set of rock and soil samples that could be returned to Earth in the future. It will also test new technology to benefit future robotic and human exploration of Mars.",
+        description: "Predicting the emergence of mushrooms in a specific region",
+        icon: "/objetico.svg",
+        expandedContent: "Predicting the emergence of mushrooms in a region to streamline the work of mushroom gatherers in the community of Cuajimoloyas, Oaxaca, Mexico.",
     },
     {
         title: "Science",
-        description:
-            "The rover's mission has four science objectives: Studying Mars' Habitability, Seeking Signs of Past Microbial Life, Collecting and Caching Samples, and Preparing for Future Human Missions.",
-        icon: "/mars-icons/science.jpg",
-        expandedContent:
-            "The science objectives include: 1) Looking for habitability - identifying past environments capable of supporting microbial life. 2) Seeking biosignatures - looking for signs of possible past microbial life in those habitable environments. 3) Caching samples - collecting core rock and regolith samples and storing them on the Martian surface. 4) Preparing for humans - testing oxygen production from the Martian atmosphere.",
-    },
-    {
-        title: "Raw Images",
-        description: "View raw images sent back by Perseverance from its explorations on Mars.",
-        icon: "/mars-icons/raw-images.jpg",
-        expandedContent:
-            "Browse through thousands of raw images captured by Perseverance's advanced camera systems, including Mastcam-Z, SuperCam, PIXL, SHERLOC, and more. These images are uploaded directly from Mars and provide an unfiltered view of the Red Planet's surface, rocks, and atmospheric conditions.",
+        description: "Probabilistic linear regression model with information obtained from satellites.",
+        icon: "/resources.svg",
+        expandedContent: "Combination of two prediction models, using precipitation, humidity, temperature, and NDVI data.",
     },
     {
         title: "Resources",
-        description: "Visit the one-stop-shop for all Perseverance media.",
-        icon: "/mars-icons/resources.jpg",
-        expandedContent:
-            "Access a comprehensive collection of Perseverance resources including high-resolution images, videos, 3D models, mission graphics, fact sheets, press kits, and educational materials. Perfect for educators, students, media professionals, and space enthusiasts.",
-    },
-    {
-        title: "Mission Updates",
-        description:
-            "Read updates provided by self-selected Mars 2020 mission team members who love to share with the public what Perseverance is doing.",
-        icon: "/mars-icons/mission-updates.jpg",
-        expandedContent:
-            "Get behind-the-scenes insights from the engineers, scientists, and mission specialists working on Perseverance. These personal accounts provide unique perspectives on the rover's daily activities, challenges overcome, and exciting discoveries made on the Martian surface.",
-    },
-    {
-        title: "The Mars Report",
-        description:
-            "Your source for everything on or about the Red Planet, continuing NASA's six decades of unparalleled exploration and discoveries — mission news, science findings, unique Mars imagery, and more.",
-        icon: "",
-        expandedContent:
-            "The Mars Report brings together decades of Mars exploration into one comprehensive resource. Explore the history of Mars missions, compare findings across different rovers and orbiters, and stay updated with the latest discoveries and scientific breakthroughs from the Red Planet.",
+        description: "Datalist from GPN, MODIS LST, Sentinel, and Odis satellites.",
+        icon: "/recursosw.svg",
+        expandedContent: `“Primary productivity and climate control mushroom yields in Mediterranean pine forests.”
+https://www.sciencedirect.com/science/article/abs/pii/S0168192320301179
+NASA resources
+https://www.spaceappschallenge.org/2025/challenges/bloomwatch-an-earth-observation-application-for-global-flowering-phenology/?tab=resources1`
     },
 ]
 
@@ -71,14 +46,14 @@ export function Accordion() {
             <div className="mx-auto max-w-6xl">
                 <div className="space-y-0">
                     {navigationItems.map((item, index) => (
-                        <div key={item.title} className="border-t border-gray-200 first:border-t-0">
+                        <div key={item.title} className="border-t border-gray-200 first:border-t-0 px-4">
                             <button
                                 onClick={() => toggleItem(index)}
                                 className="group flex w-full items-center gap-6 py-8 text-left transition-colors hover:bg-gray-50"
                             >
                                 {item.icon && (
                                     <div className="flex-shrink-0">
-                                        <div className="h-12 w-12 overflow-hidden rounded-full bg-gray-200">
+                                        <div className="h-12 w-12 overflow-hidden ">
                                             <img
                                                 src={item.icon || "/placeholder.svg"}
                                                 alt={item.title}
