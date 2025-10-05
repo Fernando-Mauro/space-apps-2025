@@ -48,12 +48,12 @@ export function VideoSection() {
         <section className="bg-black py-20 lg:py-32">
             <div className="container mx-auto px-4 lg:px-8 max-w-7xl space-y-24 lg:space-y-32">
                 <VideoItem
-                    label="REPLAY"
-                    title="NASA Shares Details of Perseverance Rover Finding"
-                    description="Experts discuss the analysis of a rock sampled by NASA's Perseverance Mars rover last year, and the science findings published Wednesday, Sept. 10, in the journal Nature. The sample, called 'Sapphire Canyon,' was collected in July 2024 from a set of rocky outcrops on the edges of Neretva Vallis, a river valley carved by water rushing into Jezero Crater long ago."
-                    linkText="Replay the Sept. 10 news conference"
-                    linkHref="#"
-                    videoId="dQw4w9WgXcQ"
+                    label="Smalltown"
+                    title="Cuajimoloyas, a small town near the sky"
+                    description="A town in Oaxaca that stands out for its majestic and unusual scenery. Come and discover the variety of edible, toxic, and medicinal mushrooms; learn about their cultivation and growth, and purchase handicrafts, preserves, and products made from medicinal plants, among other things."
+                    linkText="Youtube Video"
+                    linkHref="https://www.youtube.com/watch?v=vMygmTwUA3E"
+                    videoId="vMygmTwUA3E"
                 />
 
                 <VideoItem

@@ -116,7 +116,12 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
       prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]
     )
   }
-
+  useEffect(() => {
+    // SET THE FIRST OVERLAY AS ACTIVE BY DEFAULT
+    if (overlays.length > 0 && activeOverlays.length === 0) {
+      setActiveOverlays([overlays[0].name]);
+    }
+  }, []);
   // --- Renderizado ---
   return (
     <>
@@ -152,7 +157,7 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
             </div>
           )}
         </div>
-
+          
         {/* --- Selector de Capas Base (Dinámico) --- */}
         {baseLayers.length > 0 && (
           <div className="space-y-2">
@@ -162,8 +167,8 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
                 key={layer.name}
                 onClick={() => setSelectedBaseLayer(layer.name)}
                 className={`w-full text-left px-4 py-3 rounded-xl transition-all ${selectedBaseLayer === layer.name
-                    ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
-                    : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
+                  ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
+                  : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
                   }`}
               >
                 <div className="flex items-center gap-3">
@@ -187,8 +192,8 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
                 key={overlay.name}
                 onClick={() => toggleOverlay(overlay.name)}
                 className={`w-full text-left px-4 py-3 rounded-xl transition-all ${activeOverlays.includes(overlay.name)
-                    ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
-                    : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
+                  ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
+                  : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
                   }`}
               >
                 <div className="flex items-center gap-3">

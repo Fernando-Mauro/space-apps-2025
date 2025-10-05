@@ -5,7 +5,6 @@ import { GithubSection } from "./landing/Github";
 import { Hero } from "./landing/Hero";
 import { NewsArticle } from "./landing/NewsArticle";
 import { VideoSection } from "./landing/VideoSection";
-import MapPage from "./map/page";
 import "@/app/styles.css"
 export default function Home() {
  
@@ -17,8 +16,6 @@ export default function Home() {
       <Accordion/>
       <Gallery/>
       <GithubSection/>
-      {/* <MapPage/> */}
-
     </main>
   )
 }

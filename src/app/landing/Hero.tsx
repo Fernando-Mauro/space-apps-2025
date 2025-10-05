@@ -19,28 +19,19 @@ export function Hero() {
             <nav className="relative z-10 border-b border-white/10 bg-black/30 backdrop-blur-sm">
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                     <div className="flex items-center gap-8">
-                        <Link href="/" className="text-sm font-medium text-white hover:text-white/80">
-                            Explore
-                        </Link>
+                        <a href="https://github.com/Belegui-dev/space-apps-2025" className="text-sm font-medium text-white hover:text-white/80">
+                            Github
+                        </a>
                     </div>
                     <div className="flex items-center gap-6 text-sm">
                         <Link href="#" className="text-white hover:text-white/80">
-                            Perseverance Home
+                            Meet the team
+                        </Link>
+                         <Link href="#" className="text-white hover:text-white/80">
+                            Try Our Demo
                         </Link>
                         <Link href="#" className="text-white hover:text-white/80">
-                            Science
-                        </Link>
-                        <Link href="#" className="text-white hover:text-white/80">
-                            News and Features
-                        </Link>
-                        <Link href="#" className="text-white hover:text-white/80">
-                            Multimedia
-                        </Link>
-                        <Link href="#" className="text-white hover:text-white/80">
-                            Mars Missions
-                        </Link>
-                        <Link href="#" className="text-white hover:text-white/80">
-                            Mars Home
+                            Theoretical Foundations
                         </Link>
                     </div>
                 </div>
@@ -52,19 +43,19 @@ export function Hero() {
                     {/* Main Content */}
                     <div className="max-w-2xl space-y-6">
                         <h1 className="font-bold text-white text-7xl leading-tight tracking-tight">
-                            Beisha:
+                            Beisha 
+                            <span className="align-middle text-3xl font-normal text-white/80 mt-4"> /bˈe͡ɪsa/</span>
                             <br />
                             Nacidos del
                             <br />
                             Hongo
                         </h1>
                         <p className="max-w-lg text-lg text-white/90 leading-relaxed">
-                            NASA Mars Perseverance rover seeks signs of ancient life and collects samples of rock and regolith
-                            for possible Earth return.
+                            Beisha is a system for predicting and searching for wild mushrooms in the Sierra Norte of Oaxaca. It uses satellite data (GPM, MODISLST, SENTINEL) and a probabilistic method to help local communities plan and optimize their collection routes.
                         </p>
                         <div className="flex items-center gap-2">
                             <div className="h-2 w-2 rounded-full bg-green-500" />
-                            <span className="text-xs font-medium uppercase tracking-wider text-white">Active Mission</span>
+                            <span className="text-xs font-medium uppercase tracking-wider text-white">Under development</span>
                         </div>
                     </div>
 

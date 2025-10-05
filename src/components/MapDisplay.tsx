@@ -7,7 +7,7 @@ import { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 import { DateControl } from './DateControl';
 import { CustomLayersControl } from './MapControl';
 import MapActions from './MapActions';
-import { Layer , circleMarker, Icon, marker} from 'leaflet';
+import { Layer, Icon, marker } from 'leaflet';
 
 // Estilos para las capas GeoJSON
 const stylePuntos = {
@@ -19,10 +19,10 @@ const stylePuntos = {
   fillOpacity: 0.8
 };
 const fungiIcon = new Icon({
-    iconUrl: '/hongo_mark.png',
-    iconSize: [32, 64],
-    iconAnchor: [16, 64],
-    popupAnchor: [0, -64]
+  iconUrl: '/hongo_mark.png',
+  iconSize: [32, 64],
+  iconAnchor: [16, 64],
+  popupAnchor: [0, -64]
 });
 
 const MapDisplay = () => {
@@ -34,7 +34,7 @@ const MapDisplay = () => {
     const fetchGeojsonData = async () => {
       try {
         // 1. Apunta directamente a tu archivo .geojson en la carpeta /public
-        const response = await fetch('/fungifind.geojson'); 
+        const response = await fetch('/fungifind.geojson');
         if (!response.ok) {
           throw new Error('Error al cargar el archivo GeoJSON');
         }
@@ -57,7 +57,7 @@ const MapDisplay = () => {
   };
 
   return (
-    <MapContainer center={[17.1182868, -96.4575874]}   zoom={15} style={{ height: '100vh', width: '100%' }}>
+    <MapContainer center={[17.1182868, -96.4575874]} zoom={15} style={{ height: '100vh', width: '100%' }}>
       <CustomLayersControl>
         {/* --- CAPAS BASE --- */}
         <CustomLayersControl.BaseLayer checked name="🗺️ Calles">
@@ -74,19 +74,27 @@ const MapDisplay = () => {
           />
         </CustomLayersControl.BaseLayer>
 
-        <CustomLayersControl.BaseLayer name="🌃 Oscuro">
+        <CustomLayersControl.BaseLayer name="🏔️ Topográfico">
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; CARTO'
+            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+            attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
           />
         </CustomLayersControl.BaseLayer>
 
+        <CustomLayersControl.Overlay name="⛰️ Relieve">
+          <TileLayer
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
+            attribution='&copy; Esri'
+            opacity={0.65} // Ajusta la opacidad para ver el mapa base debajo
+            zIndex={10}    // Asegura que se muestre sobre el mapa base
+          />
+        </CustomLayersControl.Overlay>
         {/* --- CAPAS SUPERPUESTAS (OVERLAYS) --- */}
         {/* 3. Renderiza el componente GeoJSON solo si los datos existen */}
         {geojsonData && (
-          <CustomLayersControl.Overlay checked name="Mis Datos">
-            <GeoJSON 
-              data={geojsonData} 
+          <CustomLayersControl.Overlay name="Umbral de florecimiento de hongos">
+            <GeoJSON
+              data={geojsonData}
               onEachFeature={onEachFeature}
               pointToLayer={(feature, latlng) => {
                 return marker(latlng, { icon: fungiIcon });
