@@ -11,6 +11,8 @@
   "dependencies": {
     "@types/geojson": "^7946.0.16",
     "leaflet": "^1.9.4",
+    "lucid": "^2.21.0",
+    "lucide-react": "^0.544.0",
     "next": "15.5.4",
     "osmtogeojson": "^3.0.0-beta.5",
     "react": "19.1.0",

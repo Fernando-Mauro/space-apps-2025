@@ -1,4 +1,5 @@
 import MapPage from "./map/page";
+import { DateControl } from "@/components/date-control"
 
 export default function Home() {
  

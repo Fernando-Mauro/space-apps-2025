@@ -1,13 +1,21 @@
 "use client";
 
+
+import { DateControl } from "@/components/date-control"
+import { MapControl } from "@/components/map-control"
+import MapActions from "@/components/map-actions"
 import { MapContainer, TileLayer, GeoJSON, LayersControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import osmtogeojson from 'osmtogeojson';
 import { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
+import '@/components/date-control';
+
+
 
 // Este es tu componente de mapa, ahora aislado y listo para ser importado
 const MapDisplay = () => {
+
   const [geojsonData, setGeojsonData] = useState<FeatureCollection<Geometry, GeoJsonProperties> | null>(null);
 
   useEffect(() => {
@@ -57,6 +65,11 @@ const MapDisplay = () => {
           </LayersControl.Overlay>
         )} */}
       </LayersControl>
+      <DateControl
+        onStatusChange={(status) => {
+          console.log("Status changed:", status)
+        }}
+      />
     </MapContainer>
   );
 };
