@@ -59,7 +59,7 @@ export function Hero() {
                             Hongo
                         </h1>
                         <p className="max-w-lg text-lg text-white/90 leading-relaxed">
-                            NASA&apos;s Mars Perseverance rover seeks signs of ancient life and collects samples of rock and regolith
+                            NASA Mars Perseverance rover seeks signs of ancient life and collects samples of rock and regolith
                             for possible Earth return.
                         </p>
                         <div className="flex items-center gap-2">
