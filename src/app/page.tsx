@@ -1,5 +1,6 @@
 "use client";
 import { Accordion } from "./landing/Accordion";
+import { SimpleFooter } from "./landing/Footer";
 import { Gallery } from "./landing/Gallery";
 import { GithubSection } from "./landing/Github";
 import { Hero } from "./landing/Hero";
@@ -16,6 +17,7 @@ export default function Home() {
       <Accordion/>
       <Gallery/>
       <GithubSection/>
+      <SimpleFooter/>
     </main>
   )
 }

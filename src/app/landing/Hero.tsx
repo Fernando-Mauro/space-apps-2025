@@ -10,7 +10,7 @@ export function Hero() {
                 <img
                     src="/hero-1.jpg"
                     alt="Mushrooms growing on a forest floor"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover -scale-x-100" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </div>
