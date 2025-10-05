@@ -1,43 +1,77 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { Search, MapPin } from "lucide-react"
+import React, { useState, useRef, useEffect, useMemo } from "react"
+import { Search, MapPin, Layers, CheckSquare } from "lucide-react"
 
-type MapStyle = "satellite" | "dark" | "cyclist"
-
-interface MapControlProps {
-  onLocationSelect?: (location: string) => void
-  onStyleChange?: (style: MapStyle) => void
-  className?: string
+// --- Interfaces y Tipos ---
+interface LayerProps {
+  children: React.ReactNode
+  name: string
+  checked?: boolean
 }
 
-// Datos de ejemplo para el autocompletado
+interface CustomLayersControlProps {
+  children: React.ReactNode
+  className?: string
+  // Aquí podrías añadir props como onLocationSelect si quisieras conectar la búsqueda
+}
+
+// --- Componentes "Dummy" para definir las capas ---
+// No renderizan nada por sí mismos, solo sirven para pasar props.
+const BaseLayer: React.FC<LayerProps> = () => null
+BaseLayer.displayName = "BaseLayer" // Indispensable para identificarlos
+
+const Overlay: React.FC<LayerProps> = () => null
+Overlay.displayName = "Overlay" // Indispensable para identificarlos
+
+// Datos de ejemplo para el autocompletado (conservado del original)
 const worldLocations = [
-  "Madrid, España",
-  "Barcelona, España",
-  "París, Francia",
-  "Londres, Reino Unido",
-  "Nueva York, Estados Unidos",
-  "Tokio, Japón",
-  "Berlín, Alemania",
-  "Roma, Italia",
-  "Ámsterdam, Países Bajos",
-  "Sídney, Australia",
-  "Toronto, Canadá",
-  "México City, México",
-  "Buenos Aires, Argentina",
-  "São Paulo, Brasil",
-  "Moscú, Rusia",
+  "Madrid, España", "Barcelona, España", "París, Francia", "Londres, Reino Unido", 
+  "Nueva York, Estados Unidos", "Tokio, Japón", "México City, México",
 ]
 
-export function MapControl({ onLocationSelect, onStyleChange, className = "" }: MapControlProps) {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedStyle, setSelectedStyle] = useState<MapStyle>("satellite")
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [filteredLocations, setFilteredLocations] = useState<string[]>([])
+// --- Componente Principal ---
+export function CustomLayersControl({ children, className = "" }: CustomLayersControlProps) {
   const searchRef = useRef<HTMLDivElement>(null)
 
-  // Filtrar ubicaciones basadas en la búsqueda
+  // --- Estados para la funcionalidad de búsqueda ---
+  const [searchQuery, setSearchQuery] = useState("")
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [filteredLocations, setFilteredLocations] = useState<string[]>([])
+  
+  // --- Procesamiento de las capas pasadas como children ---
+  const { baseLayers, overlays } = useMemo(() => {
+    const baseLayers: { name: string; children: React.ReactNode }[] = []
+    const overlays: { name: string; children: React.ReactNode }[] = []
+
+    React.Children.forEach(children, (child) => {
+      if (React.isValidElement(child)) {
+        if (child.type === BaseLayer) {
+          baseLayers.push({ name: child.props.name, children: child.props.children })
+        } else if (child.type === Overlay) {
+          overlays.push({ name: child.props.name, children: child.props.children })
+        }
+      }
+    })
+    return { baseLayers, overlays }
+  }, [children])
+
+  // --- Estados para el control de capas ---
+  const [selectedBaseLayer, setSelectedBaseLayer] = useState<string>(() => {
+    const checkedChild = React.Children.toArray(children).find(
+      (child) => React.isValidElement(child) && child.type === BaseLayer && child.props.checked
+    ) as React.ReactElement<LayerProps> | undefined
+    return checkedChild?.props.name ?? (baseLayers.length > 0 ? baseLayers[0].name : "")
+  })
+
+  const [activeOverlays, setActiveOverlays] = useState<string[]>(() => {
+    const checkedOverlays = React.Children.toArray(children).filter(
+      (child) => React.isValidElement(child) && child.type === Overlay && child.props.checked
+    ) as React.ReactElement<LayerProps>[]
+    return checkedOverlays.map(overlay => overlay.props.name)
+  })
+
+  // --- Efectos para la búsqueda (conservados del original) ---
   useEffect(() => {
     if (searchQuery.trim()) {
       const filtered = worldLocations.filter((location) => location.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -49,95 +83,127 @@ export function MapControl({ onLocationSelect, onStyleChange, className = "" }: 
     }
   }, [searchQuery])
 
-  // Cerrar sugerencias al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false)
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  // --- Manejadores de eventos ---
   const handleLocationSelect = (location: string) => {
     setSearchQuery(location)
     setShowSuggestions(false)
-    onLocationSelect?.(location)
+    // Aquí podrías llamar a onLocationSelect?.(location) si lo necesitas
   }
 
-  const handleStyleChange = (style: MapStyle) => {
-    setSelectedStyle(style)
-    onStyleChange?.(style)
+  const toggleOverlay = (name: string) => {
+    setActiveOverlays((prev) =>
+      prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]
+    )
   }
 
-  const mapStyles: { value: MapStyle; label: string }[] = [
-    { value: "satellite", label: "Satélite" },
-    { value: "dark", label: "Oscuro" },
-    { value: "cyclist", label: "Ciclista" },
-  ]
-
+  // --- Renderizado ---
   return (
-    <div
-      className={`bg-slate-700/40 backdrop-blur-md rounded-2xl border border-slate-600/50 shadow-xl p-4 left-2 top-2 absolute z-[1000] ${className}`}
-    >
-      {/* Buscador con autocompletado */}
-      <div ref={searchRef} className="relative mb-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => searchQuery && setShowSuggestions(true)}
-            placeholder="Buscar ubicación..."
-            className="w-full bg-slate-800/50 text-slate-100 placeholder:text-slate-400 rounded-xl pl-11 pr-4 py-3 border border-slate-600/50 focus:outline-none focus:ring-2 focus:ring-slate-500/50 transition-all"
-          />
+    <>
+      {/* EL PANEL DE CONTROL (UI) */}
+      <div
+        className={`bg-slate-700/40 backdrop-blur-md rounded-2xl border border-slate-600/50 shadow-xl p-4 left-2 top-2 absolute z-[1000] ${className}`}
+      >
+        {/* Buscador con autocompletado (conservado) */}
+        <div ref={searchRef} className="relative mb-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => searchQuery && setShowSuggestions(true)}
+              placeholder="Buscar ubicación..."
+              className="w-full bg-slate-800/50 text-slate-100 placeholder:text-slate-400 rounded-xl pl-11 pr-4 py-3 border border-slate-600/50 focus:outline-none focus:ring-2 focus:ring-slate-500/50 transition-all"
+            />
+          </div>
+          {showSuggestions && filteredLocations.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800/95 backdrop-blur-md rounded-xl border border-slate-600/50 shadow-xl overflow-hidden z-10 max-h-60 overflow-y-auto">
+              {filteredLocations.map((location, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleLocationSelect(location)}
+                  className="w-full text-left px-4 py-3 text-slate-200 hover:bg-slate-700/50 transition-colors flex items-center gap-2 border-b border-slate-700/50 last:border-b-0"
+                >
+                  <MapPin className="w-4 h-4 text-slate-400" />
+                  {location}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Lista de sugerencias */}
-        {showSuggestions && filteredLocations.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800/95 backdrop-blur-md rounded-xl border border-slate-600/50 shadow-xl overflow-hidden z-10 max-h-60 overflow-y-auto">
-            {filteredLocations.map((location, index) => (
+        {/* --- Selector de Capas Base (Dinámico) --- */}
+        {baseLayers.length > 0 && (
+          <div className="space-y-2">
+             <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><Layers size={16}/> Capas Base</h3>
+            {baseLayers.map((layer) => (
               <button
-                key={index}
-                onClick={() => handleLocationSelect(location)}
-                className="w-full text-left px-4 py-3 text-slate-200 hover:bg-slate-700/50 transition-colors flex items-center gap-2 border-b border-slate-700/50 last:border-b-0"
+                key={layer.name}
+                onClick={() => setSelectedBaseLayer(layer.name)}
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
+                  selectedBaseLayer === layer.name
+                    ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
+                    : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
+                }`}
               >
-                <MapPin className="w-4 h-4 text-slate-400" />
-                {location}
+                <div className="flex items-center gap-3">
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                    selectedBaseLayer === layer.name ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
+                  }`}>
+                    {selectedBaseLayer === layer.name && <div className="w-2.5 h-2.5 rounded-full bg-slate-200" />}
+                  </div>
+                  <span className="font-medium">{layer.name}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* --- Selector de Overlays (Dinámico) --- */}
+        {overlays.length > 0 && (
+          <div className="space-y-2 mt-4">
+            <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><CheckSquare size={16}/> Superposiciones</h3>
+            {overlays.map((overlay) => (
+              <button
+                key={overlay.name}
+                onClick={() => toggleOverlay(overlay.name)}
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
+                  activeOverlays.includes(overlay.name)
+                    ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
+                    : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
+                    activeOverlays.includes(overlay.name) ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
+                  }`}>
+                    {activeOverlays.includes(overlay.name) && <div className="w-2.5 h-2.5 rounded-sm bg-slate-200" />}
+                  </div>
+                  <span className="font-medium">{overlay.name}</span>
+                </div>
               </button>
             ))}
           </div>
         )}
       </div>
 
-      {/* Selector de estilos de mapa */}
-      <div className="space-y-2">
-        {mapStyles.map((style) => (
-          <button
-            key={style.value}
-            onClick={() => handleStyleChange(style.value)}
-            className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
-              selectedStyle === style.value
-                ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
-                : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                  selectedStyle === style.value ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
-                }`}
-              >
-                {selectedStyle === style.value && <div className="w-2.5 h-2.5 rounded-full bg-slate-200" />}
-              </div>
-              <span className="font-medium">{style.label}</span>
-            </div>
-          </button>
-        ))}
-      </div>
-    </div>
+      {/* RENDERIZADO DE LAS CAPAS EN EL MAPA */}
+      {baseLayers.find(layer => layer.name === selectedBaseLayer)?.children}
+      {overlays.filter(layer => activeOverlays.includes(layer.name)).map(layer => layer.children)}
+    </>
   )
 }
+
+// Adjuntamos los componentes "dummy" al componente principal
+CustomLayersControl.BaseLayer = BaseLayer
+CustomLayersControl.Overlay = Overlay
