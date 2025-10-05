@@ -6,7 +6,7 @@ export function GithubSection() {
             <div className="container mx-auto max-w-4xl">
                 <div className="flex flex-col items-center justify-center gap-6 rounded-lg border border-border bg-card p-8 text-center md:p-12">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground">
-                        <Github className="h-8 w-8 text-background" />
+                        <img src="/logo-1.svg" className="h-12 w-12" alt="" />
                     </div>
 
                     <div className="space-y-2">

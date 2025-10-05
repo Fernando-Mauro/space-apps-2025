@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Space Apps 2025",
   description: "Made for space apps 2025",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

@@ -18,7 +18,11 @@ export function Hero() {
             {/* Navigation */}
             <nav className="relative z-10 border-b border-white/10 bg-black/30 backdrop-blur-sm">
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+                    {/* logo */}
+
+
                     <div className="flex items-center gap-8">
+                        <img src="/logo.svg" className="h-12 w-12" alt="" />
                         <a href="https://github.com/Belegui-dev/space-apps-2025" className="text-sm font-medium text-white hover:text-white/80">
                             Github
                         </a>
@@ -27,7 +31,7 @@ export function Hero() {
                         <Link href="#" className="text-white hover:text-white/80">
                             Meet the team
                         </Link>
-                         <Link href="/demo" className="text-white hover:text-white/80">
+                        <Link href="/demo" className="text-white hover:text-white/80">
                             Try Our Demo
                         </Link>
                         <Link href="#" className="text-white hover:text-white/80">
@@ -43,7 +47,7 @@ export function Hero() {
                     {/* Main Content */}
                     <div className="max-w-2xl space-y-6">
                         <h1 className="font-bold text-white text-7xl leading-tight tracking-tight">
-                            Beisha 
+                            Beisha
                             <span className="align-middle text-3xl font-normal text-white/80 mt-4"> /bˈe͡ɪsa/</span>
                             <br />
                             Nacidos del
