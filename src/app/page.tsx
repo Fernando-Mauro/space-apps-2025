@@ -8,16 +8,16 @@ import { NewsArticle } from "./landing/NewsArticle";
 import { VideoSection } from "./landing/VideoSection";
 import "@/app/styles.css"
 export default function Home() {
- 
+
   return (
     <main>
-      <Hero/>
-      <NewsArticle/>
-      <VideoSection/>
-      <Accordion/>
-      <Gallery/>
-      <GithubSection/>
-      <SimpleFooter/>
+      <Hero />
+      <NewsArticle />
+      <VideoSection />
+      <Accordion />
+      <Gallery />
+      <GithubSection />
+      <SimpleFooter />
     </main>
   )
 }
