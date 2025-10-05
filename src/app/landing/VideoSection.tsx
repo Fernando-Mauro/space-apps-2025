@@ -58,11 +58,11 @@ export function VideoSection() {
 
                 <VideoItem
                     label="FEATURED VIDEO"
-                    title="Mars Rock Samples: The Stories They Could Tell"
-                    description="NASA's Mars Perseverance rover is building a unique rock collection, which also includes samples of Mars atmosphere and loose surface material. These samples record the history of the Jezero Crater landing site, and may even preserve signs of ancient life. Learn more about these precious samples, which Mars Sample Return could deliver to Earth for detailed study in the future."
+                    title="Yema de Huevo (Amanita caesarea)"
+                    description="It is a basidiomycete fungus of the Agaricales order, which mainly appears between summer and fall, when there is sufficient moisture in the soil. Its flavor is somewhat reminiscent of nuts, and it is recommended to cut off the volva, as it can make the dish slightly bitter. It is advisable to return the volva to the soil, as it contains a large number of spores that ensure that mushrooms of the same species continue to grow. It should not be confused with the “false oronja” or Amanita muscar, another oronja with more reddish tones and white spots, but which is toxic."
                     linkText="Learn More"
-                    linkHref="#"
-                    videoId="dQw4w9WgXcQ"
+                    linkHref="https://youtu.be/QVhbuSO81Ac"
+                    videoId="QVhbuSO81Ac"
                 />
             </div>
         </section>
