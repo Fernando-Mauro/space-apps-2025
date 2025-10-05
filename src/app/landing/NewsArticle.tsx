@@ -57,6 +57,7 @@ export function NewsArticle() {
                             the ;Sapphire Canyon; core sample.
                         </p>
                         <p className="text-xs font-medium text-gray-800">NASA/JPL-Caltech/MSSS</p> */}
+                        {/* cambio */}
                     </div>
                 </div>
             </div>
