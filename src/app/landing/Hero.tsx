@@ -34,7 +34,7 @@ export function Hero() {
                         <Link href="/demo" className="text-white hover:text-white/80">
                             Try Our Demo
                         </Link>
-                        <Link href="#" className="text-white hover:text-white/80">
+                        <Link href="/foundations" className="text-white hover:text-white/80">
                             Theoretical Foundations
                         </Link>
                     </div>
