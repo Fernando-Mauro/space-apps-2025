@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, useEffect, useMemo } from "react"
+import React, { useState, useRef, useEffect, useMemo, ReactNode } from "react"
 import { Search, MapPin, Layers, CheckSquare } from "lucide-react"
 
 // --- Interfaces y Tipos ---
@@ -26,7 +26,7 @@ Overlay.displayName = "Overlay" // Indispensable para identificarlos
 
 // Datos de ejemplo para el autocompletado (conservado del original)
 const worldLocations = [
-  "Madrid, España", "Barcelona, España", "París, Francia", "Londres, Reino Unido", 
+  "Madrid, España", "Barcelona, España", "París, Francia", "Londres, Reino Unido",
   "Nueva York, Estados Unidos", "Tokio, Japón", "México City, México",
 ]
 
@@ -38,38 +38,49 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
   const [searchQuery, setSearchQuery] = useState("")
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [filteredLocations, setFilteredLocations] = useState<string[]>([])
-  
+
   // --- Procesamiento de las capas pasadas como children ---
   const { baseLayers, overlays } = useMemo(() => {
-    const baseLayers: { name: string; children: React.ReactNode }[] = []
-    const overlays: { name: string; children: React.ReactNode }[] = []
+    const baseLayers: React.ReactElement<LayerProps>[] = []
+    const overlays: React.ReactElement<LayerProps>[] = []
 
     React.Children.forEach(children, (child) => {
-      if (React.isValidElement(child)) {
+      if (React.isValidElement<LayerProps>(child)) {
         if (child.type === BaseLayer) {
-          baseLayers.push({ name: child.props.name, children: child.props.children })
+          baseLayers.push(child)
         } else if (child.type === Overlay) {
-          overlays.push({ name: child.props.name, children: child.props.children })
+          overlays.push(child)
         }
       }
     })
-    return { baseLayers, overlays }
+
+    return {
+      baseLayers: baseLayers.map(layer => ({ name: layer.props.name, children: layer.props.children })),
+      overlays: overlays.map(layer => ({ name: layer.props.name, children: layer.props.children })),
+    }
   }, [children])
 
-  // --- Estados para el control de capas ---
   const [selectedBaseLayer, setSelectedBaseLayer] = useState<string>(() => {
     const checkedChild = React.Children.toArray(children).find(
-      (child) => React.isValidElement(child) && child.type === BaseLayer && child.props.checked
-    ) as React.ReactElement<LayerProps> | undefined
-    return checkedChild?.props.name ?? (baseLayers.length > 0 ? baseLayers[0].name : "")
-  })
+      (child) =>
+        React.isValidElement(child) &&
+        child.type === BaseLayer &&
+        (child as React.ReactElement<LayerProps>).props.checked
+    ) as React.ReactElement<LayerProps> | undefined;
+
+    return checkedChild?.props.name ?? (baseLayers.length > 0 ? baseLayers[0].name : "");
+  });
 
   const [activeOverlays, setActiveOverlays] = useState<string[]>(() => {
     const checkedOverlays = React.Children.toArray(children).filter(
-      (child) => React.isValidElement(child) && child.type === Overlay && child.props.checked
-    ) as React.ReactElement<LayerProps>[]
-    return checkedOverlays.map(overlay => overlay.props.name)
-  })
+      (child) =>
+        React.isValidElement(child) &&
+        child.type === Overlay &&
+        (child as React.ReactElement<LayerProps>).props.checked
+    ) as React.ReactElement<LayerProps>[];
+
+    return checkedOverlays.map(overlay => overlay.props.name);
+  });
 
   // --- Efectos para la búsqueda (conservados del original) ---
   useEffect(() => {
@@ -145,21 +156,19 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
         {/* --- Selector de Capas Base (Dinámico) --- */}
         {baseLayers.length > 0 && (
           <div className="space-y-2">
-             <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><Layers size={16}/> Capas Base</h3>
+            <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><Layers size={16} /> Capas Base</h3>
             {baseLayers.map((layer) => (
               <button
                 key={layer.name}
                 onClick={() => setSelectedBaseLayer(layer.name)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
-                  selectedBaseLayer === layer.name
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${selectedBaseLayer === layer.name
                     ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
                     : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                    selectedBaseLayer === layer.name ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
-                  }`}>
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${selectedBaseLayer === layer.name ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
+                    }`}>
                     {selectedBaseLayer === layer.name && <div className="w-2.5 h-2.5 rounded-full bg-slate-200" />}
                   </div>
                   <span className="font-medium">{layer.name}</span>
@@ -172,21 +181,19 @@ export function CustomLayersControl({ children, className = "" }: CustomLayersCo
         {/* --- Selector de Overlays (Dinámico) --- */}
         {overlays.length > 0 && (
           <div className="space-y-2 mt-4">
-            <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><CheckSquare size={16}/> Superposiciones</h3>
+            <h3 className="font-semibold text-slate-300 px-1 text-sm flex items-center gap-2"><CheckSquare size={16} /> Superposiciones</h3>
             {overlays.map((overlay) => (
               <button
                 key={overlay.name}
                 onClick={() => toggleOverlay(overlay.name)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${
-                  activeOverlays.includes(overlay.name)
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all ${activeOverlays.includes(overlay.name)
                     ? "bg-slate-600/60 text-slate-100 border-2 border-slate-500/70 shadow-md"
                     : "bg-slate-800/30 text-slate-300 border border-slate-600/30 hover:bg-slate-700/40"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
-                    activeOverlays.includes(overlay.name) ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
-                  }`}>
+                  <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${activeOverlays.includes(overlay.name) ? "border-slate-400 bg-slate-500" : "border-slate-500 bg-transparent"
+                    }`}>
                     {activeOverlays.includes(overlay.name) && <div className="w-2.5 h-2.5 rounded-sm bg-slate-200" />}
                   </div>
                   <span className="font-medium">{overlay.name}</span>
