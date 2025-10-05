@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown" // 1. Importar la librería
 import "@/app/styles.css"
 import fs from "fs/promises"
 import path from "path"
-import 'katex/dist/katex.min.css' 
+import 'katex/dist/katex.min.css'
 import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 
@@ -20,41 +20,13 @@ interface Paper {
 // 2. Ejemplo de abstract con Markdown
 const papers: Paper[] = [
     {
-        title: "Autonomous Navigation and Obstacle Avoidance for Mars Rovers Using Deep Reinforcement Learning",
-        authors: "Smith, J., Johnson, M., & Williams, R.",
-        publication: "Journal of Aerospace Engineering",
-        year: 2023,
-        url: "https://example.com/paper1",
-        abstract:
-            "This paper presents a **novel approach** to autonomous navigation using *deep reinforcement learning* algorithms optimized for Martian terrain. Key features include:\n\n- Real-time obstacle detection.\n- Adaptive pathfinding.",
-    },
-    {
-        title: "Spectroscopic Analysis of Martian Rock Samples: Methods and Applications",
-        authors: "Chen, L., Rodriguez, A., & Patel, S.",
-        publication: "Planetary Science Review",
-        year: 2022,
-        url: "https://example.com/paper2",
-        abstract:
-            "Comprehensive review of spectroscopic techniques employed in analyzing Martian geological samples for biosignature detection.",
-    },
-    {
-        title: "Energy-Efficient Path Planning for Planetary Rovers in Uncertain Environments",
-        authors: "Anderson, K., & Thompson, D.",
-        publication: "IEEE Transactions on Robotics",
-        year: 2023,
-        url: "https://example.com/paper3",
-        abstract:
-            "Novel energy optimization algorithms for path planning that account for terrain uncertainty and power constraints.",
-    },
-    {
-        title: "Communication Protocol Optimization for Deep Space Missions",
-        authors: "Martinez, E., Lee, H., & Brown, T.",
-        publication: "Space Communications Journal",
-        year: 2024,
-        url: "https://example.com/paper4",
-        abstract:
-            "Advanced communication protocols designed to maximize data throughput while minimizing power consumption in deep space environments.",
-    },
+        "title": "RECOLECCIÓN, COMERCIALIZACIÓN Y CONSUMO DE HONGOS SILVESTRES EN LA REGIÓN MIXTECA DE OAXACA, MÉXICO",
+        "authors": "López-Hernández, Abimael, Arellano Mont, Lluvia J., Uribe Jiménez, Itzel, & Aparicio Aparicio, Juan Carlos",
+        "publication": "Revista Etnobiología",
+        "year": 2022,
+        "url": "https://doi.org/10.22201/si.24488151e.2022.2.10162",
+        "abstract": "Esta investigación constituye una contribución al conocimiento de la etnomicología en la subregión de la Mixteca Alta de Oaxaca."
+    }
 ]
 
 export default async function ResearchPapers() {
@@ -68,7 +40,7 @@ export default async function ResearchPapers() {
                 <div className="mb-12">
                     <h2 className="text-4xl font-bold mb-4">Referenced Research</h2>
                     <p className="text-lg text-zinc-600 mb-8">Key scientific papers consulted in developing this project</p>
-                    
+
                     {/* 4. Renderizar el contenido del archivo MD */}
                     <div className="prose prose-zinc max-w-none bg-white p-6 rounded-lg border border-zinc-200">
                         {/* 2. Añadir los plugins al componente ReactMarkdown */}
