@@ -50,7 +50,7 @@ const MapDisplay = () => {
   }, []); // El array vacío asegura que esto se ejecute solo una vez
 
   // Función para añadir popups a cada elemento del mapa
-  const onEachFeature = (feature: any, layer: Layer) => {
+  const onEachFeature = (feature: GeoJSON.Feature, layer: Layer) => {
     if (feature.properties && feature.properties.name) { // Cambia 'name' por la propiedad que quieras mostrar
       layer.bindPopup(feature.properties.name);
     }
