@@ -27,7 +27,7 @@ export function Hero() {
                         <Link href="#" className="text-white hover:text-white/80">
                             Meet the team
                         </Link>
-                         <Link href="#" className="text-white hover:text-white/80">
+                         <Link href="/demo" className="text-white hover:text-white/80">
                             Try Our Demo
                         </Link>
                         <Link href="#" className="text-white hover:text-white/80">
@@ -60,7 +60,7 @@ export function Hero() {
                     </div>
 
                     {/* Bottom Cards */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         <Link
                             href="#"
                             className="group flex items-center justify-between border-t border-white/20 py-6 transition-colors hover:border-white/40"
@@ -88,7 +88,7 @@ export function Hero() {
                                 <ArrowRight className="h-4 w-4 text-white" />
                             </div>
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

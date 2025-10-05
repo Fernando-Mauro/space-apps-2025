@@ -49,14 +49,14 @@ export function NewsArticle() {
                                 className="h-full w-full object-cover"
                             />
                         </div>
-                        <p className="text-xs text-gray-600 leading-relaxed">
+                        {/* <p className="text-xs text-gray-600 leading-relaxed">
                             NASAs Perseverance Mars rover alongside the rock nicknamed ;Cheyava Falls.; in this July
                             23, 2024, selfie made up of 62 individual images. ;Cheyava Falls,; which has features that may
                             bear on the question of whether the Red Planet was long ago home to microscopic life, is to the left of
                             the rover near the center of the image. The small hole visible in the rock is where Perseverance collected
                             the ;Sapphire Canyon; core sample.
                         </p>
-                        <p className="text-xs font-medium text-gray-800">NASA/JPL-Caltech/MSSS</p>
+                        <p className="text-xs font-medium text-gray-800">NASA/JPL-Caltech/MSSS</p> */}
                     </div>
                 </div>
             </div>

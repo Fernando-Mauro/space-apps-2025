@@ -81,14 +81,13 @@ const MapDisplay = () => {
           />
         </CustomLayersControl.BaseLayer>
 
-        <CustomLayersControl.Overlay name="⛰️ Relieve">
+        {/* <CustomLayersControl.BaseLayer name="⛰️ Relieve">
           <TileLayer
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
             attribution='&copy; Esri'
-            opacity={0.65} // Ajusta la opacidad para ver el mapa base debajo
-            zIndex={10}    // Asegura que se muestre sobre el mapa base
           />
-        </CustomLayersControl.Overlay>
+        </CustomLayersControl.BaseLayer> */}
+
         {/* --- CAPAS SUPERPUESTAS (OVERLAYS) --- */}
         {/* 3. Renderiza el componente GeoJSON solo si los datos existen */}
         {geojsonData && (
