@@ -16,76 +16,52 @@ interface GalleryImage {
 const galleryImages: GalleryImage[] = [
     {
         id: 1,
-        src: "/gallery/mars-1.jpg",
-        alt: "Perseverance rover selfie on Mars",
-        title: "Rover Selfie",
-        date: "Sol 387",
-        camera: "WATSON",
+        src: "/galeria-1.jpg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
     },
     {
         id: 2,
-        src: "/gallery/mars-2.jpg",
-        alt: "Mars surface terrain",
-        title: "Jezero Crater",
-        date: "Sol 412",
-        camera: "Mastcam-Z",
+        src: "/galeria-2.jpg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
     },
     {
         id: 3,
-        src: "/gallery/mars-3.jpg",
-        alt: "Rock sample collection site",
-        title: "Sample Collection",
-        date: "Sol 523",
-        camera: "Front Hazard Avoidance Camera",
+        src: "/galeria-3.jpeg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
     },
     {
         id: 4,
-        src: "/gallery/mars-4.jpg",
-        alt: "Martian landscape panorama",
-        title: "Delta Panorama",
-        date: "Sol 634",
-        camera: "Mastcam-Z",
+        src: "/galeria-4.jpeg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
     },
     {
         id: 5,
-        src: "/gallery/mars-5.jpg",
-        alt: "Close-up of Martian rocks",
-        title: "Rock Analysis",
-        date: "Sol 289",
-        camera: "SHERLOC WATSON",
+        src: "/galeria-5.jpeg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
     },
     {
         id: 6,
-        src: "/gallery/mars-6.jpg",
-        alt: "Ingenuity helicopter on Mars",
-        title: "Ingenuity Flight",
-        date: "Sol 456",
-        camera: "Mastcam-Z",
-    },
-    {
-        id: 7,
-        src: "/gallery/mars-7.jpg",
-        alt: "Mars sunset",
-        title: "Martian Sunset",
-        date: "Sol 715",
-        camera: "Navigation Camera",
-    },
-    {
-        id: 8,
-        src: "/gallery/mars-8.jpg",
-        alt: "Wheel tracks on Mars",
-        title: "Rover Tracks",
-        date: "Sol 198",
-        camera: "Rear Hazard Avoidance Camera",
-    },
-    {
-        id: 9,
-        src: "/gallery/mars-9.jpg",
-        alt: "Ancient river delta",
-        title: "Ancient Delta",
-        date: "Sol 801",
-        camera: "Mastcam-Z",
-    },
+        src: "/galeria-6.jpg",
+        alt:"Hongos",
+        title:"HONGOS",
+        date:"Unknow",
+        camera:"Google",
+    }
 ]
 
 export function Gallery() {
@@ -97,11 +73,11 @@ export function Gallery() {
                 {/* Section Header */}
                 <div className="mb-16 text-center">
                     <p className="text-sm tracking-[0.2em] text-gray-400 mb-4">IMAGE GALLERY</p>
-                    <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Exploring Mars</h2>
-                    <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                    <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Exploring Cuajimoloyas</h2>
+                    {/* <p className="text-gray-400 text-lg max-w-3xl mx-auto">
                         A collection of stunning images captured by NASAs Perseverance rover, showcasing the Martian landscape and
                         scientific discoveries.
-                    </p>
+                    </p> */}
                 </div>
 
                 {/* Gallery Grid */}
@@ -160,7 +136,7 @@ export function Gallery() {
                             <h3 className="text-3xl font-bold mb-3">{selectedImage.title}</h3>
                             <div className="flex items-center justify-center gap-8 text-gray-400">
                                 <span className="flex items-center gap-2">
-                                    <span className="text-sm">Sol:</span>
+                                    <span className="text-sm">Ub:</span>
                                     <span className="font-semibold">{selectedImage.date}</span>
                                 </span>
                                 <span className="flex items-center gap-2">
