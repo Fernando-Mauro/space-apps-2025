@@ -12,14 +12,13 @@ export function GithubSection() {
                     <div className="space-y-2">
                         <h2 className="text-2xl font-bold md:text-3xl">View on GitHub</h2>
                         <p className="text-muted-foreground max-w-2xl">
-                            Explore the source code for this Mars 2020 Perseverance Rover project. Contributions and feedback are
-                            welcome.
+                            Explore the source code for this project. Contributions and feedback are welcome.
                         </p>
                     </div>
 
                     <button className="group">
                         <a
-                            href="https://github.com/yourusername/mars-rover-project"
+                            href="https://github.com/Fernando-Mauro/space-apps-2025"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2"
