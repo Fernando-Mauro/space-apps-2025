@@ -26,6 +26,30 @@ const papers: Paper[] = [
         "year": 2022,
         "url": "https://doi.org/10.22201/si.24488151e.2022.2.10162",
         "abstract": "Esta investigación constituye una contribución al conocimiento de la etnomicología en la subregión de la Mixteca Alta de Oaxaca."
+    },
+    {
+        "title": "Age class influence on the yield of edible fungi in a managed Mediterranean forest",
+        "authors": "Ágreda, Teresa; Cisneros, Óscar; Águeda, Beatriz; Fernández-Toirán, Luz Marina",
+        "publication": "Mycorrhiza",
+        "year": 2014,
+        "url": "https://doi.org/10.1007/s00572-013-0522-y",
+        "abstract": "Se analizó el efecto del año de muestreo y la edad del rodal en la estructura, dinámica y producción de hongos comestibles en un bosque mediterráneo de Pinus pinaster en España. Se registraron 153 especies, 55 comestibles, con una producción promedio de 19.8 kg ha⁻¹, destacando Lactarius deliciosus. La producción fue mayor en rodales de mediana edad (41-60 años) y mostró una fuerte variabilidad interanual."
+    },
+    {
+        "title": "Primary productivity and climate control mushroom yields in Mediterranean pine forests",
+        "authors": "Olano, José Miguel; Martínez-Rodrigo, Raquel; Altelarre, José Miguel; Ágreda, Teresa; Fernández-Toirán, Marina; García-Cervigón, Ana I.; Rodríguez-Puerta, Francisco; Águeda, Beatriz",
+        "publication": "Agricultural and Forest Meteorology",
+        "year": 2020,
+        "url": "https://doi.org/10.1016/j.agrformet.2020.108015",
+        "abstract": "La productividad de hongos en bosques mediterráneos depende tanto del clima como de la productividad primaria del año anterior, medida mediante NDVI y humedad del suelo."
+    },
+    {
+        "title": "Comparison of Mathematical Models Describing Mushroom (Amanita caesarea) Drying",
+        "authors": "Ivanova, Miroslava T.; Katrandzhiev, Nedyalko T.; Dospatliev, Lilko K.; Papazov, Penko K.",
+        "publication": "Journal of Chemical Technology and Metallurgy",
+        "year": 2019,
+        "url": "https://dl.uctm.edu/journal/node/jctm2019.4.18",
+        "abstract": "Se compararon once modelos matemáticos para describir el  isotérmico del hongo Amanita caesarea. El modelo de Henderson y Pabis modificado mostró el mejor ajuste con R² > 0.999."
     }
 ]
 
