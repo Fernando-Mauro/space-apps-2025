@@ -1,3 +1,4 @@
+# Fundamento Teórico
 ## Objetivo
 Se busca predecir la probabilidad en un lugar y semana, de que el hongo silvestre conocido como _yema de huevo_ (Amanita caesarea) supere un umbral de producción (el cual varia dependiendo de la temporada).
 ## Simbología
@@ -34,6 +35,8 @@ El siguiente conjunto de datos se derivan del ánalisis del comportamiento de la
 ### Acumulación de recursos en años previos (Proceso lento)
 Gracias al uso del NDVI podemos identificar la cantidad de carbono que ha quedado en ciertas áreas de suelo, lo que podemos utilizar para deducir el comportamiento del ecosistema (crecimiento de distintas especies) en cierto periodo de tiempo
 
+<!-- $R_{i,t}$ -->
+### Temporada actual climatica (Proceso semanal)
 Variables como la precipitación, temperatura y humedad del suelo nos permitiran aproximar al comportamiento de la funga de manera "inmediata".
 
 # Manejo de datos
