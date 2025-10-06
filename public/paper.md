@@ -7,8 +7,8 @@ A través del fundamento teórico utilizaremos los siguientes simbolos para repr
 
 - $\wp = Probabilidad \ [0,1]$:
     La probabilidad es un valor entre 0 y 1 _(Para entender mejor, leer el método)_
-- $i =$ Ubicación:
-    Esta variable es usada para determinar el punto en que se llevara a cabo el calculo, este consiste de un par de datos, los cuales representan las coordenadas centrales de un rango de **** $km^2$
+- $i =$ Region/Punto:
+    Esta variable es usada para determinar el punto en que se llevara a cabo el calculo, este consiste de un par de datos, los cuales representan las coordenadas centrales de un rango de n $km^2$
 - $t =$ Fecha
     Esta variable representa una semana en un año dado. Esto debido al poco cambio en el comportamiento de los ecosistemas en periodos de un solo día
 - $k =$ Año anterior
@@ -24,7 +24,6 @@ A través del fundamento teórico utilizaremos los siguientes simbolos para repr
 ---
 El siguiente conjunto de datos se derivan del ánalisis del comportamiento de la amanita caesarea en entornos controlados, para comprender como se relacionan con todas las variabes que hemos mencionado anteriormente, a continuación incluimos sus significados y simbología 
 - $\gamma =$ Coeficiente de afectación de NDVI
-<!--Esta variable es el resultado de identificar como -->
 - $\beta =$ Coeficiente de afectación de Activación
     - $\beta_1 =$ Coeficiente de afectación de la humedad del suelo
     - $\beta_2 =$ Coeficiente de afectación de temperatura
@@ -35,7 +34,6 @@ El siguiente conjunto de datos se derivan del ánalisis del comportamiento de la
 ### Acumulación de recursos en años previos (Proceso lento)
 Gracias al uso del NDVI podemos identificar la cantidad de carbono que ha quedado en ciertas áreas de suelo, lo que podemos utilizar para deducir el comportamiento del ecosistema (crecimiento de distintas especies) en cierto periodo de tiempo
 
-<!-- $R_{i,t}$ -->
 ### Temporada actual climatica (Proceso semanal)
 Variables como la precipitación, temperatura y humedad del suelo nos permitiran aproximar al comportamiento de la funga de manera "inmediata".
 
@@ -44,6 +42,20 @@ Variables como la precipitación, temperatura y humedad del suelo nos permitiran
 Bases de datos libres, de Satelites proveidos en los recursos del reto actual, tales como:
 - [GPM (Global Precipitation Measurement)](https://gpm.nasa.gov/)
 - SMAP
--
+
 De igual modo, algunos datos se tomaron de las bdd de la INEGI (Instituto Nacional de Estadistica y Geofgrafía) para complementar algunos puntos 
-## Procesamiento de la información
+
+
+## Método
+1. Se estandarizan los datos de las siguientes variables:
+    - $\widehat{NDVI_{i,t-k}}$
+    - $\widehat{SM_{i,t}}$
+    - $\widehat{T_{i,t}}$
+    - $\widehat{P_{i,t}}$
+2. Calculamos el indice de recursos
+    $R = \gamma_0 + \gamma_1NVDI_{t-1}+\gamma_2NVDI_{t-2}+\gamma_3NVDI^2_{t-1}$
+3. Calculamos el indice de activación
+    $A = \beta_0 + \beta_1SM + \beta_2T+\beta_3P$
+4. Calculamos la probabilidad del umbral de desarrollo siendo superado
+    $\text{logit}(P_{i,t}) = \alpha + \theta_1 R_{i,t} + \theta_2 A_{i,t} + \theta_3 (R_{i,t} \times A_{i,t}) + \boldsymbol{\theta_X}^\top \mathbf{X}_{i} + u_i + v_t$
+    $P_{i,t} = \frac{1}{1 + e^{-\text{logit}(P_{i,t})}}$
