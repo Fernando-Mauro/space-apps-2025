@@ -1,61 +1,55 @@
-# Fundamento Teórico
-## Objetivo
-Se busca predecir la probabilidad en un lugar y semana, de que el hongo silvestre conocido como _yema de huevo_ (Amanita caesarea) supere un umbral de producción (el cual varia dependiendo de la temporada).
-## Simbología
-A través del fundamento teórico utilizaremos los siguientes simbolos para representar distintas variables.
+# Theoretical Basis
+## Objective
+The aim is to predict the probability, in a given location and week, that the wild mushroom known as the Caesar's mushroom (Amanita caesarea) will exceed a production threshold (which varies depending on the season).
+## Symbols
+Throughout the theoretical basis, we will use the following symbols to represent different variables.
 
-
-- $\wp = Probabilidad \ [0,1]$:
-    La probabilidad es un valor entre 0 y 1 _(Para entender mejor, leer el método)_
-- $i =$ Region/Punto:
-    Esta variable es usada para determinar el punto en que se llevara a cabo el calculo, este consiste de un par de datos, los cuales representan las coordenadas centrales de un rango de n $km^2$
-- $t =$ Fecha
-    Esta variable representa una semana en un año dado. Esto debido al poco cambio en el comportamiento de los ecosistemas en periodos de un solo día
-- $k =$ Año anterior
-    Representa un año desde el que queremos hacer un procesamiento de un historico de valores, los cuales utilizamos para el calculo y comparación del NDVI
-- $SM =$ Humedad del  suelo
-    Este dato es medido en $m^3$ de agua por $m^3$ de suelo
-- $P =$ Precipitación
-    Variable utilizada para evaluar las precipitaciones en cierta zona, se mide en $mm$
-- $T =$ temperatura
-    Grados celsius que tiene el entorno en un periodo dado 
-- $NDVI =$ Indice de Vegetación de Diferencia Normalizada
-    El NDVI nos permite analizar el comportamiento fenológico de la vegetación de un área dada
+- $\wp = Probability \ [0,1]$:
+    The probability is a value between 0 and 1. _(For a better understanding, read the method.)_
+- $i =$ Region/Point:
+    This variable is used to determine the point at which the calculation will be performed. It consists of a pair of data points, which represent the central coordinates of a range of n $km^2$.
+- $t =$ Date
+    This variable represents one week in a given year. This is due to the little change in the behavior of ecosystems in periods of a single day
+- $k =$ Previous year
+    This represents a year from which we want to process historical values, which we use to calculate and compare the NDVI.
+- $SM =$ Soil moisture
+    This data is measured in $m^3$ of water per $m^3$ of soil.
+- $P =$ Precipitation
+    Variable used to evaluate precipitation in a certain area, measured in $mm$
+- $T =$ Temperature
+    Degrees Celsius of the environment in a given period
+- $NDVI =$ Normalized Difference Vegetation Index
+    The NDVI allows us to analyze the phenological behavior of vegetation in a given area
 ---
-El siguiente conjunto de datos se derivan del ánalisis del comportamiento de la amanita caesarea en entornos controlados, para comprender como se relacionan con todas las variabes que hemos mencionado anteriormente, a continuación incluimos sus significados y simbología 
-- $\gamma =$ Coeficiente de afectación de NDVI
-- $\beta =$ Coeficiente de afectación de Activación
-    - $\beta_1 =$ Coeficiente de afectación de la humedad del suelo
-    - $\beta_2 =$ Coeficiente de afectación de temperatura
-    - $\beta_3 =$ Coeficiente de afectación de la precipitación
-- $\alpha = $ Coeficiente de afectación del umbral
-
-## Procesos biológicos a tomar en cuenta
-### Acumulación de recursos en años previos (Proceso lento)
-Gracias al uso del NDVI podemos identificar la cantidad de carbono que ha quedado en ciertas áreas de suelo, lo que podemos utilizar para deducir el comportamiento del ecosistema (crecimiento de distintas especies) en cierto periodo de tiempo
-
-### Temporada actual climatica (Proceso semanal)
-Variables como la precipitación, temperatura y humedad del suelo nos permitiran aproximar al comportamiento de la funga de manera "inmediata".
-
-# Manejo de datos
-## Fuentes de información
-Bases de datos libres, de Satelites proveidos en los recursos del reto actual, tales como:
+The following set of data is derived from the analysis of the behavior of Amanita caesarea in controlled environments, to understand how they relate to all the variables we have mentioned above. Below we include their meanings and symbols
+- $\gamma =$ NDVI impact coefficient
+- $\beta =$ Activation impact coefficient
+    - $\beta_1 =$ Soil moisture impact coefficient
+    - $\beta_2 =$ Temperature impact coefficient
+    - $\beta_3 =$ Precipitation impact coefficient
+- $\alpha = $ Threshold impact coefficient
+## Biological processes to consider
+### Accumulation of resources in previous years (slow process)
+Thanks to the use of NDVI, we can identify the amount of carbon that has remained in certain areas of soil, which we can use to deduce the behavior of the ecosystem (growth of different species) over a certain period of time.
+### Current climate season (weekly process)
+Variables such as precipitation, temperature, and soil moisture allow us to approximate the behavior of the fungus in an “immediate” way.
+# Data management
+## Sources of information
+Free databases from satellites provided in the resources of the current challenge, such as:
 - [GPM (Global Precipitation Measurement)](https://gpm.nasa.gov/)
 - SMAP
+Similarly, some data were taken from the databases of INEGI (National Institute of Statistics and Geography) to complement certain points. 
 
-De igual modo, algunos datos se tomaron de las bdd de la INEGI (Instituto Nacional de Estadistica y Geofgrafía) para complementar algunos puntos 
-
-
-## Método
-1. Se estandarizan los datos de las siguientes variables:
-    - $\widehat{NDVI_{i,t-k}}$
+## Method
+1. The data for the following variables are standardized:
+- $\widehat{NDVI_{i,t-k}}$
     - $\widehat{SM_{i,t}}$
-    - $\widehat{T_{i,t}}$
-    - $\widehat{P_{i,t}}$
-2. Calculamos el indice de recursos
+- $\widehat{T_{i,t}}$
+- $\widehat{P_{i,t}}$
+2. We calculate the resource index
     $R = \gamma_0 + \gamma_1NVDI_{t-1}+\gamma_2NVDI_{t-2}+\gamma_3NVDI^2_{t-1}$
-3. Calculamos el indice de activación
+3. We calculate the activation index
     $A = \beta_0 + \beta_1SM + \beta_2T+\beta_3P$
-4. Calculamos la probabilidad del umbral de desarrollo siendo superado
+4. We calculate the probability of the development threshold being exceeded
     $\text{logit}(P_{i,t}) = \alpha + \theta_1 R_{i,t} + \theta_2 A_{i,t} + \theta_3 (R_{i,t} \times A_{i,t}) + \boldsymbol{\theta_X}^\top \mathbf{X}_{i} + u_i + v_t$
     $P_{i,t} = \frac{1}{1 + e^{-\text{logit}(P_{i,t})}}$
